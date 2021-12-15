@@ -6,3 +6,4 @@ from cloudinary.models import CloudinaryField
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_picture = CloudinaryField(blank=True, default = 'profile photo')
+    bio = models.TextField()
