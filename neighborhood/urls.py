@@ -16,8 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from django.contrib.auth import views 
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('neighbor.urls')),
+    path('accounts/',include('registration.backends.simple.urls')),
+    path('logout/', views.LogoutView.as_view(next_page='/')),
+    path('api-token-auth/', obtain_auth_token),
 ]
