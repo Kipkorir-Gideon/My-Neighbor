@@ -41,3 +41,12 @@ class Neighborhood(models.Model):
     admin = models.ForeignKey(Profile, on_delete=models.CASCADE)
     police_info = models.IntegerField()
     hospital_info = models.IntegerField()
+
+
+
+
+class Business(models.Model):
+    name = models.CharField(max_length=50)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    email = models.EmailField()
