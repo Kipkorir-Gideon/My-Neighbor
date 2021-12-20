@@ -18,5 +18,5 @@ def profile(request, pk):
             return redirect('profile')
         user = User.objects.get(pk=pk)
         current_user = request.user
-        profile_form = ProfileForm()
+        profile_form = ProfileForm(instance=request.user.profile)
         return render(request, 'profile.html', {'user': user, 'current_user': current_user, 'profile_form': profile_form})
