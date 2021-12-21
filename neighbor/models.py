@@ -11,6 +11,7 @@ class Profile(models.Model):
     bio = models.TextField()
     email = models.EmailField()
     neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE)
+    location = models.CharField(max_length=50, blank=True, null=True)
 
     #Creates a profile when a user is created
     @receiver(post_save, sender = User)
@@ -38,9 +39,23 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
     people = models.IntegerField()
-    admin = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    admin = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='admin')
     police_info = models.IntegerField()
     hospital_info = models.IntegerField()
+    photo = CloudinaryField(blank=True, default = 'photo')
+
+    def create_neighborhood(self):
+        self.save()
+
+    def delete_neighborhood(self):
+        self.delete()
+
+    @classmethod
+    def find_neighborhood(cls, neighborhood_id):
+        return cls.objects.filter(id=neighborhood_id)
+
+    def __str__(self):
+        return "%s neighborhood" % self.name
 
 
 
