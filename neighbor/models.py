@@ -7,6 +7,8 @@ from django.db.models.signals import post_save
 # Create your models here.
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile')
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     profile_picture = CloudinaryField(blank=True, default = 'profile photo')
     bio = models.TextField()
     email = models.EmailField()
