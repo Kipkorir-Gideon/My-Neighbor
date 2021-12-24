@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns =[
     path('',views.neighborhood,name='neighborhood'),
+    path('register/', views.register, name='register'),
     path('profile/<pk>', views.profile, name='profile'),
 
 ]
