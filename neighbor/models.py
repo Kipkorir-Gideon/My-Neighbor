@@ -6,13 +6,13 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    profile_picture = CloudinaryField(blank=True, default = 'profile photo')
+    profile_picture = CloudinaryField(blank=True, default = 'photo')
     bio = models.TextField()
     email = models.EmailField()
-    neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True,related_name='members', blank=True)
     location = models.CharField(max_length=50, blank=True, null=True)
 
     #Creates a profile when a user is created
@@ -26,12 +26,6 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
-    def save_user_profile(self):
-        self.save()
-
-    def delete_user_profile(self):
-        self.delete()
-
     def __str__(self):
         return "%s profile" % self.user
 
@@ -42,8 +36,8 @@ class Neighborhood(models.Model):
     location = models.CharField(max_length=50)
     people = models.IntegerField()
     admin = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='admin')
-    police_info = models.IntegerField()
-    hospital_info = models.IntegerField()
+    police_info = models.IntegerField(null=True, blank=True)
+    hospital_info = models.IntegerField(null=True,blank=True)
     photo = CloudinaryField(blank=True, default = 'photo')
 
     def create_neighborhood(self):

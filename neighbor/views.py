@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from .models import *
 from .forms import *
 from django.contrib.auth.forms import AuthenticationForm
@@ -26,12 +25,12 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
-def login(request):
+def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data('username')
-            password = form.cleaned_data('password')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
             user = authenticate(username = username, password = password)
             if user is not None:
                 login(request, user)
@@ -43,6 +42,12 @@ def login(request):
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
+
+
+def logout_request(request):
+    logout(request)
+    messages.info(request, "Logout successfully")
+    return redirect('login')
 
 
 @login_required
