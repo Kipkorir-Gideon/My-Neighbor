@@ -9,18 +9,18 @@
     <div class="container">
         <div class="row mb-4 pt-4">
             <div class="col-sm-4">
-                {% if user.profile.photo.url %}
-                <img src="{{user.profile.photo.url}}" alt="{{user.photo.url}}"
+                {% if user.profile.profile_picture.url %}
+                <img src="{{user.profile.profile_picture.url}}" alt="{{user.profile_picture.url}}"
                 style="height: 200px; width:200px; border-radius:50%" class="rounded-circle account-img">
                 {% else %}
                 <i style="font-size:100px;color:#4888BE" class="fa fa-user" aria-hidden="true"></i>
                 {% endif %}
                 <section>
                     <div class="row1">
-                        <h3 class="text-monospace text-center">{{user.username}}</h3>
-                        <p class="text-center">{{user.profile.bio}}</p>
+                        <h3 class="text-monospace text-left">{{user.username}}</h3>
+                        <p class="text-left">{{user.profile.bio}}</p>
                     </div>
-                    <div class="text-center">
+                    <div class="text-left">
                         <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                             data-target="#profileModal">Edit Profile</button>
                     </div>

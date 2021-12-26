@@ -3,13 +3,14 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from tinymce.models import HTMLField
 
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    profile_picture = CloudinaryField(blank=True, default = 'photo')
+    profile_picture = CloudinaryField('photo')
     bio = models.TextField()
     email = models.EmailField()
     neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True,related_name='members', blank=True)
@@ -80,7 +81,7 @@ class Business(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=2000)
+    description = HTMLField()
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)

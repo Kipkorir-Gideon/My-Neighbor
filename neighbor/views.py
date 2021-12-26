@@ -51,13 +51,12 @@ def logout_request(request):
 
 
 @login_required
-def profile(request, pk):
+def profile(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, instance = request.user.profile)
         if profile_form.is_valid():
             profile_form.save()
-            return redirect('profile')
-        user = User.objects.get(pk=pk)
-        current_user = request.user
-        profile_form = ProfileForm(instance=request.user.profile)
-        return render(request, 'profile.html', {'user': user, 'current_user': current_user, 'profile_form': profile_form})
+            messages.success(request, 'Profile information updated successfully.')
+        return redirect('profile')
+    profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profile.html', {'profile_form': profile_form})
