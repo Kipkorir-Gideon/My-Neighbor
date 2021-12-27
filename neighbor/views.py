@@ -60,3 +60,8 @@ def profile(request):
         return redirect('profile')
     profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'profile.html', {'profile_form': profile_form})
+
+
+@login_required
+def my_neighborhood(request):
+    return render(request, 'my_hood.html')
