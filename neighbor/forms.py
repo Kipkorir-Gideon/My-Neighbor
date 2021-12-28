@@ -19,6 +19,12 @@ class ProfileForm(forms.ModelForm):
         fields = ('profile_picture', 'bio', 'email', 'neighborhood', 'location')
 
 
+class NeighborhoodForm(forms.ModelForm):
+    class Meta:
+        model = Neighborhood
+        exclude = ('admin')
+
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
