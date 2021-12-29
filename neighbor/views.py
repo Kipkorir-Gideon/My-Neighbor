@@ -9,7 +9,17 @@ from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 @ login_required
 def neighborhood(request):
-    return render(request, 'neighborhood.html')
+    if request.method == 'POST':
+        form = NeighborhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            neighborhood = form.save(commit=False)
+            neighborhood.admin = request.user.profile
+            neighborhood.save()
+            messages.success(request,'Neighborhood created successfully.')
+            return redirect('neighborhood')
+    else:
+        form = NeighborhoodForm()
+    return render(request, 'neighborhood.html', {'form': form})
 
 
 def register(request):
@@ -61,19 +71,6 @@ def profile(request):
     profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'profile.html', {'profile_form': profile_form})
 
-
-@login_required
-def create_neighborhood(request,neighborhood_id):
-    if request.method == 'POST':
-        form = NeighborhoodForm(request.POST, request.FILES)
-        if form.is_valid():
-            neighborhood = form.save(commit=False)
-            neighborhood.admin = request.user.profile
-            neighborhood.save()
-            return redirect('neighborhood')
-    else:
-        form = NeighborhoodForm()
-    return render(request, 'new_neighborhood.html', {'form': form})
 
 
 @login_required
