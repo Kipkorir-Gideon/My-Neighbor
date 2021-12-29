@@ -63,5 +63,19 @@ def profile(request):
 
 
 @login_required
+def create_neighborhood(request,neighborhood_id):
+    if request.method == 'POST':
+        form = NeighborhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            neighborhood = form.save(commit=False)
+            neighborhood.admin = request.user.profile
+            neighborhood.save()
+            return redirect('neighborhood')
+    else:
+        form = NeighborhoodForm()
+    return render(request, 'new_neighborhood.html', {'form': form})
+
+
+@login_required
 def my_neighborhood(request):
     return render(request, 'my_hood.html')

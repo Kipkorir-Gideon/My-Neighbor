@@ -22,7 +22,7 @@ class ProfileForm(forms.ModelForm):
 class NeighborhoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
-        exclude = ('admin')
+        exclude = ('admin',)
 
 
 class PostForm(forms.ModelForm):
