@@ -74,5 +74,21 @@ def profile(request):
 
 
 @login_required
-def my_neighborhood(request):
-    return render(request, 'my_hood.html')
+def my_neighborhood(request, neighborhood_id):
+    neighborhood = Neighborhood.objects.get(id=neighborhood_id)
+    if request.method == 'POST':
+        business_form = BusinessForm(request.POST, request.FILES)
+        if business_form.is_valid():
+            business = business_form.save(commit=False)
+            business.neighborhood = neighborhood
+            business.user = request.user
+            business.save()
+            return redirect('my_neighborhood', neighborhood_id)
+    else:
+        business_form = BusinessForm()
+        current_user = request.user
+        neighborhood = Neighborhood.objects.get(id=neighborhood_id)
+        business = Business.objects.filter(neighborhood=neighborhood)
+        users = Profile.objects.filter(neighborhood=neighborhood)
+        posts = Post.objects.filter(neighborhood=neighborhood)
+    return render(request, 'my_hood.html', {'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
