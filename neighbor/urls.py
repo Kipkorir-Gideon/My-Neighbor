@@ -11,7 +11,7 @@ urlpatterns =[
     path('login/', views.login_request, name='login'),
     path('logout/', views.logout_request, name='logout'),
     path('profile/', views.profile, name='profile'),
-    path('my_neighborhood/<int:neighborhood_id>', views.my_neighborhood, name='my_neighborhood')
+    path('my_neighborhood/<int:neighborhood_id>/', views.my_neighborhood, name='my_neighborhood')
 
 ]
 

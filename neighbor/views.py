@@ -88,7 +88,7 @@ def my_neighborhood(request, neighborhood_id):
         business_form = BusinessForm()
         current_user = request.user
         neighborhood = Neighborhood.objects.get(id=neighborhood_id)
-        business = Business.objects.filter(neighborhood=neighborhood)
+        business = Business.objects.filter(neighborhood_id=neighborhood)
         users = Profile.objects.filter(neighborhood=neighborhood)
         posts = Post.objects.filter(neighborhood=neighborhood)
     return render(request, 'my_hood.html', {'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
