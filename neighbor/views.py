@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
@@ -19,7 +19,9 @@ def neighborhood(request):
             return redirect('neighborhood')
     else:
         form = NeighborhoodForm()
-    return render(request, 'neighborhood.html', {'form': form})
+        neighborhoods = Neighborhood.objects.all()
+        neighborhoods = neighborhoods[::-1]
+    return render(request, 'neighborhood.html', {'form': form, 'neighborhoods': neighborhoods})
 
 
 def register(request):
@@ -70,6 +72,15 @@ def profile(request):
         return redirect('profile')
     profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'profile.html', {'profile_form': profile_form})
+
+
+
+@login_required
+def join_hood(request, neighborhood_id):
+    neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
+    request.user.profile.neighborhood = neighborhood
+    request.user.profile.save()
+    return redirect('my_neighborhood')
 
 
 
