@@ -80,7 +80,7 @@ def join_hood(request, neighborhood_id):
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
     request.user.profile.neighborhood = neighborhood
     request.user.profile.save()
-    return redirect('my_neighborhood')
+    return redirect('my_neighborhood', neighborhood_id = neighborhood.id)
 
 
 
