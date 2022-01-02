@@ -9,11 +9,11 @@
     <div class="container">
         <div class="row mb-4 pt-4">
             <div class="col-sm-4">
-                {% if user.profile.profile_picture.url %}
-                <img src="{{user.profile.profile_picture.url}}" alt="{{user.profile_picture.url}}"
+                {% if user.profile.profile_picture %}
+                <img src="{{user.profile.profile_picture.url}}" alt="{{user.username}}"
                 style="height: 200px; width:200px; border-radius:50%" class="rounded-circle account-img">
                 {% else %}
-                <i style="font-size:100px;color:#4888BE" class="fa fa-user" aria-hidden="true"></i>
+                <i style="font-size:100px;color:#cbd7e0" class="fa fa-user" aria-hidden="true"></i>
                 {% endif %}
                 <section>
                     <div class="row1">
