@@ -1,9 +1,17 @@
+from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from .models import *
 from .forms import *
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from .token_generator import account_activation_token
+from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
@@ -28,12 +36,23 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect('neighborhood')
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = RegisterForm
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            email_subject = 'Activate Your Account'
+            message = render_to_string('activate_account.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'token':account_activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('to_email')
+            email = EmailMessage(email_subject, message, to = [to_email])
+            email.send()
+            return HttpResponse('We have sent you an email, please confirm your email address to complete registration.')
+    else:
+        form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})
 
 
