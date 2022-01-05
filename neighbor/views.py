@@ -47,7 +47,7 @@ def register(request):
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':account_activation_token.make_token(user),
             })
-            to_email = form.cleaned_data.get('to_email')
+            to_email = form.cleaned_data.get('email')
             email = EmailMessage(email_subject, message, to = [to_email])
             email.send()
             return HttpResponse('We have sent you an email, please confirm your email address to complete registration.')
@@ -64,6 +64,7 @@ def activate_account(request, uidb64, token):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
+        user.profile.email_confirmed = True
         user.save()
         login(request, user)
         return HttpResponse('Your account has been activated successfully.')
@@ -105,7 +106,8 @@ def profile(request):
             messages.success(request, 'Profile information updated successfully.')
         return redirect('profile')
     profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'profile_form': profile_form})
+    form = NeighborhoodForm()
+    return render(request, 'profile.html', {'form': form, 'profile_form': profile_form})
 
 
 
@@ -138,6 +140,7 @@ def my_neighborhood(request, neighborhood_id):
             messages.success(request, 'Business added successfully.')
             return redirect('my_neighborhood', neighborhood_id)
     else:
+        form = NeighborhoodForm()
         post_form = PostForm()
         business_form = BusinessForm()
         current_user = request.user
@@ -145,7 +148,7 @@ def my_neighborhood(request, neighborhood_id):
         business = Business.objects.filter(neighborhood_id=neighborhood)
         users = Profile.objects.filter(neighborhood=neighborhood)
         posts = Post.objects.filter(neighborhood=neighborhood)
-    return render(request, 'my_hood.html', {'post_form':post_form, 'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
+    return render(request, 'my_hood.html', {'form': form, 'post_form':post_form, 'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
 
 
 

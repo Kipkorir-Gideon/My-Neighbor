@@ -1,6 +1,6 @@
 {% load bootstrap4 %}
 
-<nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-md navbar-light mb-1" style="background-color: #7da1bb;">
   <a class="navbar-brand" href="{% url 'neighborhood' %}">Neighborhood</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
     <ul class="navbar-nav mr-auto">
       {% if user.profile.neighborhood %}
       <li class="nav-item">
-        <a class="nav-link"
+        <a class="nav-link" style="color: #ffffff;"
           href="{% url 'my_neighborhood' user.profile.neighborhood.id %}">{{user.profile.neighborhood.name}}</a>
       </li>
       {% endif %}
@@ -31,11 +31,19 @@
           {% endif %}
         </div>
       </li>
+      {% if not request.user.profile.neighborhood %}
+      <li class="nav-item">
+        <button type="button" class="btn btn-otline-primary" style="background-color: #238ac2;" data-toggle="modal"
+            data-target="#hoodModal">Add Neighborhood</button>
+      </li>
+      {% endif %}
     </ul>
+    {% if user.profile.neighborhood %}
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0 mr-5" type="submit">Search</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search business in {{neighborhood.name}}" aria-label="Search">
+      <button class="btn btn-outline-dark my-2 my-sm-0 mr-5" type="submit">Search</button>
     </form>
+    {% endif %}
     {% if user.profile.profile_picture %}
     <a href="/profile"><img src="{{user.profile.profile_picture.url}}" alt="{{user.username}}"
         style="height: 50px; width:50px; border-radius:50%" class="rounded-circle account-img">
@@ -62,3 +70,27 @@
     {% endif %}
   </div>
 </nav>
+
+
+<div class="modal fade" tabindex="-1" id="hoodModal" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Add Neighborhood</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {% bootstrap_form form %}
+          </div>
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+              </form>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>

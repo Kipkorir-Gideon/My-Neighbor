@@ -13,6 +13,7 @@ class Profile(models.Model):
     profile_picture = CloudinaryField('photo')
     bio = models.TextField()
     email = models.EmailField()
+    email_confirmed = models.BooleanField(default=False)
     neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True,related_name='members', blank=True)
     location = models.CharField(max_length=50, blank=True, null=True)
 
@@ -59,6 +60,7 @@ class Neighborhood(models.Model):
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
+    photo = CloudinaryField(blank=True, default = 'photo')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     email = models.EmailField()
@@ -81,6 +83,7 @@ class Business(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
+    photo = CloudinaryField(blank=True, default = 'photo')
     description = HTMLField()
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
