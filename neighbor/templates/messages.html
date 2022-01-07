@@ -2,7 +2,7 @@
 
 {% for message in messages %}
 
-	<div class="container-fluid mx-0 p-0 sticky-top">
+	<div class="container-fluid mx-0 p-0 sticky-top" id="message">
 	  	<div class="alert {{ message.tags }} alert-dismissible m-0 p-3" role="alert">
 		    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		    	<span aria-hidden="true">&times;</span>
@@ -12,3 +12,11 @@
 	</div>
 
 {% endfor %}
+
+<script>
+	var message_ele = document.getElementById("message");
+
+	setTimeout(function(){ 
+		message_ele.style.display = "none"; 
+	}, 2000);
+</script>

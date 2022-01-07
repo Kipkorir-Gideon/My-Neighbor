@@ -3,21 +3,21 @@
 {% block content %}
 
 
-<div class="container-fluid"  style="background-color: #cde5f5;">
-    <div class="container">
+<div class="container-fluid"  style="background-color: #2aa5e8;">
+    <div class="container pt-1">
         <div class="text-left">
-            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
+            <button type="button" class="btn btn-outline-light btn-sm" data-toggle="modal"
                 data-target="#postModal">Create Post</button>
             {% if request.user.profile.neighborhood == neighborhood %}
-            <a href="{% url 'leave_neighborhood' neighborhood.id %}" class="btn btn-outline-danger btn-sm">Leave {{neighborhood.name}}</a>
+            <a href="{% url 'leave_neighborhood' neighborhood.id %}" class="btn btn-danger btn-sm">Leave {{neighborhood.name}}</a>
             {% endif %}
         </div>
         <h2 class="text-center">{{neighborhood.name}} Neighborhood</h2>
     
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 about">
                 <h4>About {{neighborhood.name}}</h4>
-                <hr>
+                <hr class="bg-light">
                 <p>Police Contact: {{neighborhood.police_info}}</p>
                 <p>Hospital Contact: {{neighborhood.hospital_info}}</p>
                 <h5>{{neighborhood.name}} Members</h5>
@@ -27,7 +27,7 @@
                 {% endfor %}
                 {% endif %}
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 hood p-5 my-5">
                 <img src="{{neighborhood.photo.url}}" class="card-img-top" alt="neighborhood photo">
             </div>
             <div class="col-md-3">
@@ -36,7 +36,7 @@
                     <button type="button" class="btn btn-primary btn-sm ml-1" data-toggle="modal"
                         data-target="#businessModal">Add Business</button>
                 </div>
-                <hr>
+                <hr class="bg-light">
                 {% if business %}
                 {% for business in business %}
                 <div class="card-deck">

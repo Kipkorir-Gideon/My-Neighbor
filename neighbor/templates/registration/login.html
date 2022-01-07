@@ -1,12 +1,12 @@
 {%extends "registration/base.html"%}
 {% load bootstrap4 %}
 {% block content %}
-<div class="container-fluid" style="background-color: #cde5f5; min-height: 90vh;">
+<div class="container-fluid" id="auth" style="background-color: #cde5f5; min-height: 85vh;">
   <div class="container"><br>
     <div class="row">
       <!-- Empty div -->
       <div class="col-md-4"></div>
-      <div class="col-md-4 card">
+      <div class="col-md-4 card  bg-transparent">
         {% if form.errors %}
         <p> Password or Username is incorrect </p>
         {% endif %}
@@ -20,10 +20,12 @@
             <form action="/login/" method="post">
               {% csrf_token %}
               {% bootstrap_form form%}
-  
+               
+              <br>
               <div class="form-group">
-                <input type="submit" class="btn btn-primary btn-sm" value="Login">
+                <input type="submit" class="btn btn-primary btn-sm" style="width: 100%;" value="Login">
               </div>
+              <br>
   
               <input type="hidden" name="next" value="{{next}}">
   
