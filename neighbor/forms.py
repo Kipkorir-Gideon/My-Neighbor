@@ -6,11 +6,20 @@ from .models import *
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True,widget=forms.TextInput(attrs={'placeholder': 'Email','class': 'form-control',}))
+    first_name = forms.CharField(max_length=50)
+    last_name = forms.CharField(max_length=50)
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+
+
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+
+        for fieldname in ['first_name', 'last_name', 'username', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
 
 
 class ProfileForm(forms.ModelForm):
@@ -34,4 +43,4 @@ class PostForm(forms.ModelForm):
 class BusinessForm(forms.ModelForm):
     class Meta:
         model = Business
-        fields = ('name', 'email','photo', 'owner', 'neighborhood_id')
+        fields = ('name', 'email','photo', 'description', 'owner', 'neighborhood_id')

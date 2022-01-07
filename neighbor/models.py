@@ -61,6 +61,7 @@ class Neighborhood(models.Model):
 class Business(models.Model):
     name = models.CharField(max_length=50)
     photo = CloudinaryField(blank=True, default = 'photo')
+    description = models.TextField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, blank=True)
     email = models.EmailField()
