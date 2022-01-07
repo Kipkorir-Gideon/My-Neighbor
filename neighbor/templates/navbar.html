@@ -1,6 +1,6 @@
 {% load bootstrap4 %}
 
-<nav class="navbar navbar-expand-md navbar-light mb-1" style="background-color: #7da1bb;">
+<nav class="navbar navbar-expand-md navbar-light mb-1 py-4" style="background-color: #7da1bb;">
   <a class="navbar-brand" href="{% url 'neighborhood' %}">Neighborhood</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,9 +62,9 @@
 
       <a class="navbar-brand" href="{% url 'admin:index' %}"> Admin</a>
 
-      <a class='btn btn-outline-dark' href="/login">Login</a>
+      <a class='btn btn-success' href="/login">Login</a>
 
-      <a href="/register" class="btn btn-outline-primary">Register</a>
+      <a href="/register" class="btn btn-outline-dark">Register</a>
     </div>
 
     {% endif %}

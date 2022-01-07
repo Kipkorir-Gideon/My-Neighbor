@@ -62,7 +62,7 @@ class Business(models.Model):
     name = models.CharField(max_length=50)
     photo = CloudinaryField(blank=True, default = 'photo')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, blank=True)
     email = models.EmailField()
 
     def save_business(self):
@@ -86,7 +86,7 @@ class Post(models.Model):
     photo = CloudinaryField(blank=True, default = 'photo')
     description = HTMLField()
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     
             

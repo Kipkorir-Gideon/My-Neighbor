@@ -28,10 +28,10 @@ class NeighborhoodForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'description','photo')
+        fields = ('title', 'description','photo', 'neighborhood','user')
 
 
 class BusinessForm(forms.ModelForm):
     class Meta:
         model = Business
-        fields = ('name', 'email','photo')
+        fields = ('name', 'email','photo', 'owner', 'neighborhood_id')

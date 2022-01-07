@@ -13,8 +13,32 @@
         <a href="{% url 'leave_neighborhood' neighborhood.id %}" class="btn btn-outline-danger btn-sm">Leave {{neighborhood.name}}</a>
         {% endif %}
     </div>
-    <h2>{{neighborhood.name}}</h2>
-    <img src="{{neighborhood.photo.url}}" class="card-img-top" alt="neighborhood photo">
+    <h2 class="text-center">{{neighborhood.name}} Neighborhood</h2>
+
+    <div class="row">
+        <div class="col-md-3">
+            <h4>About {{neighborhood.name}}</h4>
+            <hr>
+            <p>Police Contact: {{neighborhood.police_info}}</p>
+            <p>Hospital Contact: {{neighborhood.hospital_info}}</p>
+            <h5>{{neighborhood.name}} Members</h5>
+            {% if users %}
+            {% for user in users %}
+            <h6>{{ user.first_name }} {{ user.last_name }}</h6>
+        </div>
+        <div class="col-md-6">
+            <img src="{{neighborhood.photo.url}}" class="card-img-top" alt="neighborhood photo">
+        </div>
+        <div class="col-md-3">
+            <h4>{{neighborhood.name}} Business</h4>
+            {% if business %}
+            {% for business in business %}
+            <h4>{{ business.name }}</h4>
+            <img src="{{business.photo.url}}" class="card-img-top" alt="neighborhood photo">
+            <p>{{ business.description }}</p>
+            <p><strong>{{ business.owner }}</strong></p>
+        </div>
+    </div>
 </div>
 
 <!-- business modal -->
