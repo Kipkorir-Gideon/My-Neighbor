@@ -11,9 +11,9 @@
             <div class="col-md-3"></div>
 
             <div class="col-md-6 m-auto">
-                <div class="row">
+                <div class="row bg-light pt-3">
                     <div class = "col-md-6">
-                        {% if user.profile.profile_picture %}
+                        {% if user.profile.profile_picture.url %}
                         <img src="{{user.profile.profile_picture.url}}" alt="{{user.username}}"
                         style="height: 200px; width:200px; border-radius:50%" class="rounded-circle account-img">
                         {% else %}
@@ -23,8 +23,10 @@
                     </div>
                     
                     <div class="col-md-6 text-left"><br>
-                        <h3 class="text-monospace text-left">{{user.username}}</h3>
+                        <h3 class="text-monospace text-left mb-0">{{user.first_name}} {{user.last_name}}</h3>
+                        <p class="mt-0"><strong>Email:</strong> <em>{{user.profile.email}}</em></p>
                         <p class="text-left">{{user.profile.bio}}</p>
+                        <p><strong>Neighborhood:</strong> {{user.profile.neighborhood.name}}</p>
                         <button type="button" class="btn btn-outline-light btn-sm" data-toggle="modal"
                             data-target="#profileModal">Edit Profile</button>
                     </div>

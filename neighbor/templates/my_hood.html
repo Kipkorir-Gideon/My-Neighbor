@@ -3,51 +3,80 @@
 {% block content %}
 
 
-<div class="container-fluid"  style="background-color: #2aa5e8;">
-    <div class="container pt-1">
+<div class="container-fluid my_hood">
+    <div class="pt-1">
         <div class="text-left">
-            <button type="button" class="btn btn-outline-light btn-sm" data-toggle="modal"
+            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal"
                 data-target="#postModal">Create Post</button>
             {% if request.user.profile.neighborhood == neighborhood %}
-            <a href="{% url 'leave_neighborhood' neighborhood.id %}" class="btn btn-danger btn-sm">Leave {{neighborhood.name}}</a>
+            <a href="{% url 'leave_neighborhood' neighborhood.id %}" class="btn btn-outline-danger btn-sm" id="leave">Leave {{neighborhood.name}}</a>
             {% endif %}
         </div>
         <h2 class="text-center">{{neighborhood.name}} Neighborhood</h2>
     
         <div class="row">
-            <div class="col-md-2 about">
-                <h4>About {{neighborhood.name}}</h4>
-                <hr class="bg-light">
-                <p>Police Contact: {{neighborhood.police_info}}</p>
-                <p>Hospital Contact: {{neighborhood.hospital_info}}</p>
-                <h5>{{neighborhood.name}} Members</h5>
-                {% if users %}
-                {% for user in users %}
-                <h6>{{ user.first_name }} {{ user.last_name }}</h6>
-                {% endfor %}
-                {% endif %}
+            <div class="col-md-3 about">
+                <h4 class="pl-5">About {{neighborhood.name}}</h4>
+                <hr class="bg-primary">
+                <div class="info">
+                    <p>Police Contact: <strong>{{neighborhood.police_info}}</strong></p>
+                    <p>Hospital Contact: <strong>{{neighborhood.hospital_info}}</strong></p>
+                    <p>Admin: <strong>{{neighborhood.admin.user}}</strong></p>
+                    <hr>
+                    <br>
+                    <h5><strong>{{neighborhood.name}} Members</strong></h5>
+                    {% for user in users %}
+                    <ul>
+                        <li><h6>{{ user.first_name }} {{ user.last_name }}</h6></li>
+                    </ul>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="col-md-7 hood p-5 my-5">
-                <img src="{{neighborhood.photo.url}}" class="card-img-top" alt="neighborhood photo">
+            <div class="col-md-5 hood p-3">
+                <img src="{{neighborhood.photo.url}}" class="card-img-top" alt="neighborhood photo" style="height:350px">
+                <br><br>
+                <hr>
+                <div class="posts">
+                    <h4 class="">Posts</h4>
+                    {% if posts %}
+                    {% for post in posts %}
+                    <div class="card mb-1">
+                        <div class="card-header">
+                            <p class="mb-0"><strong>{{post.user}}</strong></p>
+                            <p class="mt-0">{{post.date_posted}}</p>
+                            <h5 class="text-center">{{post.title}}</h5>
+                            <br>
+                            <p>{{post.description}}</p>
+                        </div>
+                        {% if post.photo %}
+                        <div class="card-body">
+                            <img src="{{post.photo.url}}" class="card-img-top" alt="photo" style="height: 50%">
+                        </div>
+                        {% else %}
+                        <p></p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
             </div>
-            <div class="col-md-3">
-                <div class="row">
+            <div class="col-md-4 business">
+                <div class="row pl-5">
                     <h4 class="text-center">{{neighborhood.name}} Business</h4>
                     <button type="button" class="btn btn-primary btn-sm ml-1" data-toggle="modal"
                         data-target="#businessModal">Add Business</button>
                 </div>
-                <hr class="bg-light">
+                <hr class="bg-primary">
                 {% if business %}
                 {% for business in business %}
-                <div class="card-deck">
-                    <div class="card">
+                <div class="card-deck mb-3">
+                    <div class="card mb-0">
                         <div class="card-header">
-                            <h4>{{ business.name }}</h4>
+                            <h4 class="text-center">{{ business.name }}</h4>
                         </div>
                         <div class="card-body">
-                            <img src="{{business.photo.url}}" class="card-img-top" alt="neighborhood photo">
+                            <img src="{{business.photo.url}}" class="card-img-top" alt="neighborhood photo" style="height: 50%">
                             <p>{{ business.description }}</p>
-                            <br>
                             <hr>
                             <p>Owner: <strong>{{ business.owner }}</strong></p>
                         </div>
@@ -112,6 +141,14 @@
         </div>
     </div>
 </div>
+
+<script src ="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+          
+    $('#leave').on('click', function () {
+        return confirm('Are you sure you want to leave {{neighborhood.name}}?');
+    });
+</script> 
 
 
 {% endblock %}

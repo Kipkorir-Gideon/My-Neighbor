@@ -17,8 +17,8 @@ from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 @ login_required
 def neighborhood(request):
+    form = NeighborhoodForm(request.POST, request.FILES)
     if request.method == 'POST':
-        form = NeighborhoodForm(request.POST, request.FILES)
         if form.is_valid():
             neighborhood = form.save(commit=False)
             neighborhood.admin = request.user.profile
@@ -33,8 +33,8 @@ def neighborhood(request):
 
 
 def register(request):
+    form = RegisterForm(request.POST)
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
@@ -73,8 +73,8 @@ def activate_account(request, uidb64, token):
 
 
 def login_request(request):
+    form = AuthenticationForm(request, data=request.POST)
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -99,8 +99,8 @@ def logout_request(request):
 
 @login_required
 def profile(request):
+    profile_form = ProfileForm(request.POST, instance = request.user.profile)
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance = request.user.profile)
         if profile_form.is_valid():
             profile_form.save()
             messages.success(request, 'Profile information updated successfully.')
@@ -123,9 +123,14 @@ def join_hood(request, neighborhood_id):
 @login_required
 def my_neighborhood(request, neighborhood_id):
     neighborhood = Neighborhood.objects.get(id=neighborhood_id)
+    post_form = PostForm(request.POST, request.FILES)
+    business_form = BusinessForm(request.POST, request.FILES)
+    form = NeighborhoodForm(request.POST, request.FILES)
+    users = Profile.objects.filter(neighborhood=neighborhood)
+    business = Business.objects.filter(neighborhood_id=neighborhood)
+    posts = Post.objects.filter(neighborhood=neighborhood)
+    current_user = request.user
     if request.method == 'POST':
-        post_form = PostForm(request.POST, request.FILES)
-        business_form = BusinessForm(request.POST, request.FILES)
         if post_form.is_valid():
             post = post_form.save(commit=False)
             post.neighborhood = neighborhood

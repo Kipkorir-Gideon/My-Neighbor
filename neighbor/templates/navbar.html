@@ -1,7 +1,7 @@
 {% load bootstrap4 %}
 
 <nav class="navbar sticky-top navbar-expand-md navbar-light py-4" style="background-color: #1188be;">
-  <a class="navbar-brand" href="{% url 'neighborhood' %}">Neighborhood</a>
+  <a class="navbar-brand moveText" href="{% url 'neighborhood' %}">Neighborhood</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -12,14 +12,14 @@
     <ul class="navbar-nav mr-auto">
       {% if user.profile.neighborhood %}
       <li class="nav-item">
-        <a class="nav-link" style="color: #ffffff;"
+        <a class="nav-link moveText" style="color: #ffffff;"
           href="{% url 'my_neighborhood' user.profile.neighborhood.id %}">{{user.profile.neighborhood.name}}</a>
       </li>
       {% endif %}
       <li class="nav-item">
         <div class="nav-item dropdown">
           {% if not request.user.profile.neighborhood %}
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" onMouseOver="this.style.background='#0c547b'" onMouseOut="this.style.background='#1188be'" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Join Neighborhood
           </a>
@@ -33,7 +33,7 @@
       </li>
       {% if not request.user.profile.neighborhood %}
       <li class="nav-item">
-        <button type="button" class="btn btn-otline-primary" style="background-color: #238ac2;" data-toggle="modal"
+        <button type="button" class="btn btn-otline-primary" onMouseOver="this.style.background='#0c547b'" onMouseOut="this.style.background='#1188be'" data-toggle="modal"
             data-target="#hoodModal">Add Neighborhood</button>
       </li>
       {% endif %}
@@ -58,13 +58,13 @@
     <a href="/logout" class="btn btn-danger ml-2">Logout</a>
 
     {% else %}
-    <div class="mr-2">
+    <div class="authenticate mr-2">
 
-      <a class="navbar-brand" href="{% url 'admin:index' %}"> Admin</a>
+      <a class="navbar-brand moveText" href="{% url 'admin:index' %}"> Admin</a>
 
-      <a class='btn btn-success' href="/login">Login</a>
+      <a class='btn btn-primary' href="/login">Login</a>
 
-      <a href="/register" class="btn btn-outline-dark">Register</a>
+      <a href="/register" class="btn btn-dark">Register</a>
     </div>
 
     {% endif %}

@@ -8,12 +8,38 @@
     color: #fff;
  }
 
- #auth, .home {
+ #auth, .home, .my_hood {
     background: url("/static/images/home.jpg") no-repeat;
     background-size: cover;
     background-attachment: fixed;
  }
 
  .hood {
-    border: 1px solid rgb(115, 187, 223);
+    border-left: 1px solid rgb(255, 255, 255);
+    border-right: 1px solid rgb(255, 255, 255);
+ }
+/* 
+ .my_hood {
+    background: url("/static/images/home.jpg");
+ } */
+ 
+ .moveText:hover {
+   -webkit-transform: scale(1.1);
+ }
+
+ .about, .hood, .business {
+    background: rgba(245, 248, 245, 0.4);
+    padding: 10px;
+    margin: 0 auto;
+ }
+
+ .info {
+    background-color: #fff;
+    padding: 15px
+ }
+
+ .collapse {
+    display: flex;
+    justify-content: flex-end;
+    float: right;
  }
