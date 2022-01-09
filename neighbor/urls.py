@@ -15,6 +15,7 @@ urlpatterns =[
     path('join_neighborhood/<int:neighborhood_id>', views.join_hood, name='join_neighborhood'),
     path('my_neighborhood/<int:neighborhood_id>/', views.my_neighborhood, name='my_neighborhood'),
     path('leave_neighborhood/<int:neighborhood_id>', views.leave_hood, name='leave_neighborhood'),
+    path('search',views.search, name='search'),
 
 ]
 

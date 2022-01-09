@@ -168,12 +168,14 @@ def leave_hood(request, neighborhood_id):
 
 @login_required
 def search(request):
-    if 'name' in request.GET and request.GET.get['name']:
+    if 'name' in request.GET and request.GET['name']:
         search_term = request.GET.get('name')
         search_buzz = Business.search_by_business_name(search_term)
         message = f"{search_term}"
-        return render(request, 'search.html', {'message': message, 'buzz': search_buzz})
+        form = NeighborhoodForm()
+        return render(request, 'search.html', {'message': message, 'buzz': search_buzz, "form":form})
 
     else:
+        form = NeighborhoodForm()
         message = "You have not search for any business."
-        return render(request, 'search.html', {'message': message})
+        return render(request, 'search.html', {'message': message, "form":form})

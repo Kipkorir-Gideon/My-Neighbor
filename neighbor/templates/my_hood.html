@@ -12,7 +12,7 @@
             <a href="{% url 'leave_neighborhood' neighborhood.id %}" class="btn btn-outline-danger btn-sm" id="leave">Leave {{neighborhood.name}}</a>
             {% endif %}
         </div>
-        <h2 class="text-center">{{neighborhood.name}} Neighborhood</h2>
+        <h2 class="text-center" style="color: #334d75;">{{neighborhood.name}} Neighborhood</h2>
     
         <div class="row">
             <div class="col-md-3 about">
@@ -38,6 +38,8 @@
                 <hr>
                 <div class="posts">
                     <h4 class="">Posts</h4>
+
+                    <hr class="bg-primary">
                     {% if posts %}
                     {% for post in posts %}
                     <div class="card mb-1">
@@ -48,15 +50,17 @@
                             <br>
                             <p>{{post.description}}</p>
                         </div>
-                        {% if post.photo %}
+                        {% if post.photo.url %}
                         <div class="card-body">
                             <img src="{{post.photo.url}}" class="card-img-top" alt="photo" style="height: 50%">
                         </div>
-                        {% else %}
-                        <p></p>
                         {% endif %}
                     </div>
                     {% endfor %}
+                    {% else %}
+                    <p class="text-center">
+                        No Posts Available.
+                    </p>
                     {% endif %}
                 </div>
             </div>

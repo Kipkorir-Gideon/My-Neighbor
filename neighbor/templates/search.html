@@ -3,33 +3,35 @@
 {% block content %}
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 search">
-            <br>
-            <div class="row text-center">
-                {% if business %}
-                  <h2>Found {{ business|length }} of searched term {{message}}</h2>
-                {% else %}
-                  <h4 class="text-center"> {{message}}</h4>
-                {% endif %}
-              
-              </div>
-            {% for buzz in business %}
-            <div class="flex">
-                <div>
-                    <h4 class="text-center">{{ buzz.name}}</h4>
-                    <img src="{{buzz.photo.url}}" class="card-img-top" alt="img" width="320" height="300">
-                    <p>{{buzz.description}}</p>
-                    <hr>
-                    <p>Owner: <strong>{{buzz.owner}}</strong></p>
+<div class="container-fluiid searchbuzz">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 search">
+                <br>
+                <div class="row text-center">
+                    {% if buzz %}
+                      <h2 class="text-center">Found {{ buzz|length }} of searched term {{message}}</h2>
+                    {% else %}
+                      <h4 class="text-center">Found 0 business for the search term {{message}}</h4>
+                    {% endif %}
+                  
+                  </div>
+                {% for buzz in buzz %}
+                <div class="flex">
+                    <div>
+                        <h4 class="text-center">{{ buzz.name}}</h4>
+                        <img src="{{buzz.photo.url}}" class="card-img-top" alt="img" width="320" height="300">
+                        <p>{{buzz.description}}</p>
+                        <hr>
+                        <p>Owner: <strong>{{buzz.owner}}</strong></p>
+                    </div>
                 </div>
+                <hr>
+                {% endfor %}
             </div>
-            <hr>
-            {% endfor %}
+            <div class="col-md-3"></div>
         </div>
-        <div class="col-md-4"></div>
     </div>
 </div>
 
