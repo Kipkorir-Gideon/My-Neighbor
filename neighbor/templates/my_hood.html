@@ -25,11 +25,13 @@
                     <hr>
                     <br>
                     <h5><strong>{{neighborhood.name}} Members</strong></h5>
+                    {% if users %}
                     {% for user in users %}
                     <ul>
-                        <li><h6>{{ user.first_name }} {{ user.last_name }}</h6></li>
+                        <li><h6>{{ user.profile.first_name }} {{ user.profile.last_name }}</h6></li>
                     </ul>
                     {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-5 hood p-3">

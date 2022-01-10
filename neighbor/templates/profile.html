@@ -11,7 +11,7 @@
             <div class="col-md-3"></div>
 
             <div class="col-md-6 m-auto">
-                <div class="row bg-light pt-3">
+                <div class="row bg-light p-3">
                     <div class = "col-md-6">
                         {% if user.profile.profile_picture.url %}
                         <img src="{{user.profile.profile_picture.url}}" alt="{{user.username}}"
@@ -29,7 +29,7 @@
                         {% if user.profile.neighborhood %}
                         <p><strong>Neighborhood:</strong> {{user.profile.neighborhood.name}}</p>
                         {% endif %}
-                        <button type="button" class="btn btn-outline-light btn-sm" data-toggle="modal"
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                             data-target="#profileModal">Edit Profile</button>
                     </div>
                 </div>

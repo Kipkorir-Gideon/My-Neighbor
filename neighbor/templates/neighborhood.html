@@ -3,9 +3,45 @@
 {% block content %}
 
 <div class="container-fluid home" style="min-height: 84vh;">
-    <div class="container welcome">
+    <div class="container">
         <br>
-        <h2 class="text-center">Welcome to the Neighborhood</h2>
+        <div class="row">
+            <div class="col-md-6 welcome">
+                <h2 class="text-center">Welcome to the Neighborhood</h2>
+            </div>
+            <div class="col-md-6 brief">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">About Neighborhood</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Neighborhoods is where people in the same neighborhood interact and get updates about there neighbors.</p>
+                        <p>You can join available neighborhood or create your neighborhood by using the links above.</p>
+                        <p>If you are already in a neighborhood, the name of your neighborhood appear at the top and you can click to view whats happening in the neighborhood.</p>
+                    </div>
+                    <div class="card-footer">
+                        {% if user.profile.neighborhood %}
+                        <a class="nav-link text-uppercase text-center moveText" style="color: #17609b;"
+                            href="{% url 'my_neighborhood' user.profile.neighborhood.id %}">{{user.profile.neighborhood.name}}</a>
+                        {% else %}
+                        <div class="nav-item dropdown">
+                            {% if not request.user.profile.neighborhood %}
+                            <a class="nav-link dropdown-toggle text-center" href="#" id="navbarDropdown" role="button" onMouseOver="this.style.background='#1188be'" onMouseOut="this.style.background='#ffffff'" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              Join Neighborhood
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              {% for neighborhood in neighborhoods %}
+                              <a class="dropdown-item" href="{% url 'join_neighborhood' neighborhood.id %}">{{neighborhood.name}}</a>
+                              {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

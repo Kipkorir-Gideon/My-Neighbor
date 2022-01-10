@@ -1,5 +1,6 @@
 .welcome {
-   margin: auto !important;
+   margin: auto;
+   background: rgba(245, 248, 245, 0.4);
 }
 
  .card {

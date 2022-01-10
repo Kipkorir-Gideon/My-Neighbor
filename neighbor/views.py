@@ -56,22 +56,6 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
-def activate_account(request, uidb64, token):
-    try:
-        uid = force_bytes(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.profile.email_confirmed = True
-        user.save()
-        login(request, user)
-        return HttpResponse('Your account has been activated successfully.')
-    else:
-        return HttpResponse('Activation link is invalid!')
-
-
 def login_request(request):
     form = AuthenticationForm(request, data=request.POST)
     if request.method == 'POST':
@@ -89,6 +73,22 @@ def login_request(request):
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
+
+
+def activate_account(request, uidb64, token):
+    try:
+        uid = force_bytes(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.profile.email_confirmed = True
+        user.save()
+        return redirect('login')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
 
 
 def logout_request(request):

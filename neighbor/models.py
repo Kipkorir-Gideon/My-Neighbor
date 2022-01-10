@@ -97,5 +97,13 @@ class Post(models.Model):
     def save_post(self):
         self.save()
 
+    def delete_post(self):
+        self.delete()
+
+    @classmethod
+    def show_posts(cls):
+        posts = cls.objects.all()
+        return posts
+
     def __str__(self):
         return self.title
