@@ -28,10 +28,8 @@
             <a class="dropdown-item" href="{% url 'join_neighborhood' neighborhood.id %}">{{neighborhood.name}}</a>
             {% endfor %}
           </div>
-          {% endif %}
         </div>
       </li>
-      {% if not request.user.profile.neighborhood %}
       <li class="nav-item">
         <button type="button" class="btn btn-otline-primary" onMouseOver="this.style.background='#0c547b'" onMouseOut="this.style.background='#1188be'" data-toggle="modal"
             data-target="#hoodModal" style="color: #cfc8c8;">Add Neighborhood</button>
