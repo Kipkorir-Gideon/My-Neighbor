@@ -27,9 +27,7 @@
                     <h5><strong>{{neighborhood.name}} Members</strong></h5>
                     {% if users %}
                     {% for user in users %}
-                    <ul>
-                        <li><h6>{{ user.user.first_name }} {{ user.user.last_name }}</h6></li>
-                    </ul>
+                    <h6>{{ user.user.first_name }} {{ user.user.last_name }}</h6>
                     {% endfor %}
                     {% endif %}
                 </div>
