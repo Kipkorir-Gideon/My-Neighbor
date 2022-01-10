@@ -7,7 +7,7 @@ from . import views
 
 urlpatterns =[
     path('',views.neighborhood,name='neighborhood'),
-    path('accounts/register/', views.register, name='register'),
+    path('register/', views.register, name='register'),
     path('activate/<slug:uidb64>/<slug:token>/', views.activate_account, name='activate'),
     path('accounts/login/', views.login_request, name='login'),
     path('logout/', views.logout_request, name='logout'),

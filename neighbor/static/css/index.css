@@ -11,7 +11,7 @@
     color: #fff;
  }
 
- #auth, .home, .my_hood, .searchbuzz {
+ #auth, .home, .my_hood, .searchbuzz, .profile{
     background: url("/static/images/home.jpg") no-repeat;
     background-size: cover;
     background-attachment: fixed;
